@@ -1,0 +1,11 @@
+Backend/movie-app-go/bin/
+*.exe
+*.dll
+*.out
+.DB_STORE
+.vscode/
+
+# Environment files
+Backend/movie-app-go/.env
+.env
+*.env
