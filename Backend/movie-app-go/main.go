@@ -36,8 +36,8 @@ func main() {
 				log.Println("Allowed Origin:", origins[i])
 			}
 		} else {
-			origins = []string{"*"}
-			log.Println("No ALLOWED_ORIGINS set, allowing all origins")
+			origins = []string{"http://localhost:5173"}
+			log.Println("No ALLOWED_ORIGINS set, defaulting to http://localhost:5173")
 		}
 
 		corsConfig := cors.Config{
