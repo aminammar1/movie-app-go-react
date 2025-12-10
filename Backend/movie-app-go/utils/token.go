@@ -19,7 +19,7 @@ type SigninDetails struct {
 	FirstName string
 	LastName  string
 	Role      string
-	userId    string
+	UserId    string
 	jwt.RegisteredClaims
 }
 
@@ -32,7 +32,7 @@ func GenerateAllTokens(email, firstName, lastName, role, userId string) (string,
 		FirstName: firstName,
 		LastName:  lastName,
 		Role:      role,
-		userId:    userId,
+		UserId:    userId,
 		RegisteredClaims: jwt.RegisteredClaims{
 			Issuer:    "movie-app-go",
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
@@ -51,7 +51,7 @@ func GenerateAllTokens(email, firstName, lastName, role, userId string) (string,
 		FirstName: firstName,
 		LastName:  lastName,
 		Role:      role,
-		userId:    userId,
+		UserId:    userId,
 		RegisteredClaims: jwt.RegisteredClaims{
 			Issuer:    "movie-app-go",
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
