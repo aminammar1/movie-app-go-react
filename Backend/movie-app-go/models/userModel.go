@@ -26,13 +26,17 @@ type UserLogin struct {
 	Password string `json:"password" bson:"password" validate:"required,min=8"`
 }
 
-type Userresponse struct {
+type LoginResponse struct {
 	UserId                string   `json:"user_id"`
 	FirstName             string   `json:"first_name"`
 	LastName              string   `json:"last_name"`
 	Email                 string   `json:"email"`
 	Role                  string   `json:"role"`
-	Token                 string   `json:"token"`
+	AccessToken           string   `json:"access_token"`
 	RefreshToken          string   `json:"refresh_token"`
 	FavouriteMoviesGenres []string `json:"favourite_movies_genres"`
+}
+
+type UserLogout struct {
+	UserId string `json:"user_id"`
 }

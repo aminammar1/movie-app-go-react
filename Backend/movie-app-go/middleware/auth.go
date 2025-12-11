@@ -9,7 +9,7 @@ import (
 )
 
 
-func AuthMiddleware() gin.HandlerFunc {
+func AuthenticationMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token, err := utils.GetAcessToken(c)
 

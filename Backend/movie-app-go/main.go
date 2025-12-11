@@ -3,10 +3,12 @@ package main
 import (
 	"context"
 	"log"
-	"movie-app-go/database"
 	"os"
 	"strings"
 	"time"
+
+	"movie-app-go/database"
+	"movie-app-go/routes"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -68,6 +70,9 @@ func main() {
 				log.Fatalf("Error disconnecting from MongoDB: %v", err)
 			}
 		}()
+
+		routes.SetupPublicRoutes(router, client)
+		routes.SetupProtectedRoutes(router, client)
 
 		if err:= router.Run(":5000"); err != nil {
 			log.Fatalf("Failed to run server: %v", err)
