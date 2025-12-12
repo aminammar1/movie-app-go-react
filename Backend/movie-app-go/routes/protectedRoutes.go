@@ -12,9 +12,9 @@ func SetupProtectedRoutes(router *gin.Engine, client *mongo.Client) {
 	protectedRoutes := router.Group("/api/v1")
 	protectedRoutes.Use(middleware.AuthenticationMiddleware())
 	{
-		protectedRoutes.GET("/users", conntroller.GetUsers(client))
-		protectedRoutes.GET("/user/:userId", conntroller.GetUsers(client))
+		protectedRoutes.GET("/user/:userId", conntroller.GetUserByID(client))
 		protectedRoutes.PUT("/user/:userId", conntroller.UpdateUser(client))
 		protectedRoutes.DELETE("/user/:userId", conntroller.DeleteUser(client))
+		protectedRoutes.GET("/users", conntroller.GetUsers(client))
 	}
 }

@@ -26,7 +26,7 @@ type SigninDetails struct {
 var JWT_SECRET_KEY = os.Getenv("JWT_SECRET_KEY")
 var JWT_REFRESH_SECRET_KEY = os.Getenv("JWT_REFRESH_SECRET_KEY")
 
-func GenerateAllTokens(email, firstName, lastName, role, userId string) (string, string, error) {
+func GenerateAllTokens(userId, firstName, lastName, email, role string) (string, string, error) {
 	claims := &SigninDetails{
 		Email:     email,
 		FirstName: firstName,

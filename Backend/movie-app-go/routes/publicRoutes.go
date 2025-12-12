@@ -3,8 +3,8 @@ package routes
 import (
 	conntroller "movie-app-go/controllers"
 
-	"go.mongodb.org/mongo-driver/v2/mongo"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
 func SetupPublicRoutes(router *gin.Engine, client *mongo.Client) {

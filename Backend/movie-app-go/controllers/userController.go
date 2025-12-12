@@ -141,6 +141,7 @@ func Login(client *mongo.Client) gin.HandlerFunc {
 		})
 
 		c.JSON(http.StatusOK, models.LoginResponse{
+			UserId:                foundUser.UserID,
 			FirstName:             foundUser.FirstName,
 			LastName:              foundUser.LastName,
 			Email:                 foundUser.Email,
@@ -220,7 +221,7 @@ func GetUsers(client *mongo.Client) gin.HandlerFunc {
 
 func GetUserByID(client *mongo.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		userID := c.Param("id")
+		userID := c.Param("userId")
 
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
@@ -240,35 +241,50 @@ func GetUserByID(client *mongo.Client) gin.HandlerFunc {
 
 func UpdateUser(client *mongo.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		userID := c.Param("id")
-		var user models.User
+		userID := c.Param("userId")
+		var user models.UpdateUser
 
 		if err := c.ShouldBindJSON(&user); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
+		update := bson.M{}
+		set := bson.M{}
 
-		validate := validator.New() // Validate the user struct
-		if err := validate.Struct(user); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
+		if user.FirstName != nil {
+			set["first_name"] = *user.FirstName
+		}
+		if user.LastName != nil {
+			set["last_name"] = *user.LastName
+		}
+		if user.Email != nil {
+			set["email"] = *user.Email
+		}
+		if user.Password != nil {
+			set["password"] = *user.Password
+		}
+		if user.Role != nil {
+			set["role"] = *user.Role
+		}
+		if user.FavouriteMoviesGenres != nil {
+			set["favourite_movies_genres"] = *user.FavouriteMoviesGenres
 		}
 
-		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
-		defer cancel()
-
-		var userCollection = database.OpenCollection(client, "users")
-
-		user.UpdatedAt = time.Now()
-
-		update := bson.M{
-			"$set": user,
+		if len(set) > 0 {
+			update["$set"] = set
 		}
 
-		_, err := userCollection.UpdateOne(ctx, bson.M{"user_id": userID}, update) // Update the user in the database
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error while updating user"})
-			return
+		if len(update) > 0 {
+			var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+			defer cancel()
+
+			var userCollection = database.OpenCollection(client, "users")
+
+			_, err := userCollection.UpdateOne(ctx, bson.M{"user_id": userID}, update) // Update the user in the database
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "Error while updating user"})
+				return
+			}
 		}
 
 		c.JSON(http.StatusOK, gin.H{"message": "User updated successfully"})
@@ -278,7 +294,7 @@ func UpdateUser(client *mongo.Client) gin.HandlerFunc {
 func DeleteUser(client *mongo.Client) gin.HandlerFunc {
 	{
 		return func(c *gin.Context) {
-			userID := c.Param("id")
+			userID := c.Param("userId")
 
 			var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 			defer cancel()
