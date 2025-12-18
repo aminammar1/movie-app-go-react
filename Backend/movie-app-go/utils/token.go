@@ -148,17 +148,21 @@ func ValidateRefreshToken(tokenStr string) (*SigninDetails, error) {
 }
 
 func GetAcessToken(c *gin.Context) (string, error) {
+	if cookieToken, err := c.Cookie("access_token"); err == nil && cookieToken != "" {
+		return cookieToken, nil
+	}
+
 	authHeader := c.GetHeader("Authorization")
 	if authHeader == "" {
-		return "", errors.New("authorization header missing")
+		return "", errors.New("missing access token")
 	}
 
-	tokenStr, err := c.Cookie("access_token")
-	if err != nil {
-		return "", err
+	const bearerPrefix = "Bearer "
+	if len(authHeader) > len(bearerPrefix) && authHeader[:len(bearerPrefix)] == bearerPrefix {
+		return authHeader[len(bearerPrefix):], nil
 	}
 
-	return tokenStr, nil
+	return authHeader, nil
 }
 
 func GetuserIdFromCtx(c *gin.Context) (string, error) {

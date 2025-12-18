@@ -27,6 +27,16 @@ func HashPassword(password string) (string, error) {
 	return string(HashedPassword), nil
 }
 
+// @Summary Register a new user
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param body body models.User true "User"
+// @Success 201 {object} map[string]any
+// @Failure 400 {object} map[string]any
+// @Failure 409 {object} map[string]any
+// @Failure 500 {object} map[string]any
+// @Router /api/v1/register [post]
 func Signup(client *mongo.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var user models.User
@@ -81,6 +91,16 @@ func Signup(client *mongo.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Login
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param body body models.UserLogin true "Credentials"
+// @Success 200 {object} models.LoginResponse
+// @Failure 400 {object} map[string]any
+// @Failure 401 {object} map[string]any
+// @Failure 500 {object} map[string]any
+// @Router /api/v1/login [post]
 func Login(client *mongo.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var userLogin models.UserLogin // Struct to hold login credentials
@@ -153,6 +173,15 @@ func Login(client *mongo.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Logout
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param body body models.UserLogout true "Logout"
+// @Success 200 {object} map[string]any
+// @Failure 400 {object} map[string]any
+// @Failure 500 {object} map[string]any
+// @Router /api/v1/logout [post]
 func Logout(client *mongo.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var UserLogout models.UserLogout
@@ -195,6 +224,14 @@ func Logout(client *mongo.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary List users
+// @Tags users
+// @Produce json
+// @Security ApiKeyAuth
+// @Success 200 {object} map[string]any
+// @Failure 401 {object} map[string]any
+// @Failure 500 {object} map[string]any
+// @Router /api/v1/users [get]
 func GetUsers(client *mongo.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
@@ -219,6 +256,16 @@ func GetUsers(client *mongo.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Get user by id
+// @Tags users
+// @Produce json
+// @Security ApiKeyAuth
+// @Param userId path string true "User ID"
+// @Success 200 {object} map[string]any
+// @Failure 401 {object} map[string]any
+// @Failure 404 {object} map[string]any
+// @Failure 500 {object} map[string]any
+// @Router /api/v1/getuserbyID/{userId} [get]
 func GetUserByID(client *mongo.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		userID := c.Param("userId")
@@ -239,6 +286,18 @@ func GetUserByID(client *mongo.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Update user
+// @Tags users
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param userId path string true "User ID"
+// @Param body body models.UpdateUser true "Updates"
+// @Success 200 {object} map[string]any
+// @Failure 400 {object} map[string]any
+// @Failure 401 {object} map[string]any
+// @Failure 500 {object} map[string]any
+// @Router /api/v1/updateuser/{userId} [put]
 func UpdateUser(client *mongo.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		userID := c.Param("userId")
@@ -291,6 +350,15 @@ func UpdateUser(client *mongo.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Delete user
+// @Tags users
+// @Produce json
+// @Security ApiKeyAuth
+// @Param userId path string true "User ID"
+// @Success 200 {object} map[string]any
+// @Failure 401 {object} map[string]any
+// @Failure 500 {object} map[string]any
+// @Router /api/v1/deleteuser/{userId} [delete]
 func DeleteUser(client *mongo.Client) gin.HandlerFunc {
 	{
 		return func(c *gin.Context) {
@@ -312,6 +380,13 @@ func DeleteUser(client *mongo.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Refresh tokens
+// @Tags auth
+// @Produce json
+// @Success 200 {object} map[string]any
+// @Failure 401 {object} map[string]any
+// @Failure 500 {object} map[string]any
+// @Router /api/v1/refresh-token [post]
 func RefreshToken(client *mongo.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second) // 100 seconds timeout

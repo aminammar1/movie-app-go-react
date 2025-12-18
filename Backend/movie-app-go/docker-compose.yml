@@ -12,5 +12,22 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  movie-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: movie_app_api
+    env_file:
+      - .env
+    environment:
+      MONGO_URI: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@db:27017/${MONGO_DB_NAME}?authSource=admin
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    restart: unless-stopped
+    volumes:
+      - ./.env:/app/.env
+
 volumes:
   mongo_data:

@@ -18,7 +18,7 @@ type User struct {
 	UpdatedAt             time.Time     `json:"updated_at" bson:"updated_at"`
 	AccessToken           string        `json:"access_token" bson:"access_token"`
 	RefreshToken          string        `json:"refresh_token" bson:"refresh_token"`
-	FavouriteMoviesGenres []string      `json:"favourite_movies_genres" bson:"favourite_movies_genres" validate:"required,dive"`
+	FavouriteMoviesGenres []Genre       `json:"favourite_movies_genres" bson:"favourite_movies_genres" validate:"required,dive"`
 }
 
 type UserLogin struct {
@@ -27,14 +27,14 @@ type UserLogin struct {
 }
 
 type LoginResponse struct {
-	UserId                string   `json:"user_id"`
-	FirstName             string   `json:"first_name"`
-	LastName              string   `json:"last_name"`
-	Email                 string   `json:"email"`
-	Role                  string   `json:"role"`
-	AccessToken           string   `json:"access_token"`
-	RefreshToken          string   `json:"refresh_token"`
-	FavouriteMoviesGenres []string `json:"favourite_movies_genres"`
+	UserId                string  `json:"user_id"`
+	FirstName             string  `json:"first_name"`
+	LastName              string  `json:"last_name"`
+	Email                 string  `json:"email"`
+	Role                  string  `json:"role"`
+	AccessToken           string  `json:"access_token"`
+	RefreshToken          string  `json:"refresh_token"`
+	FavouriteMoviesGenres []Genre `json:"favourite_movies_genres"`
 }
 
 type UserLogout struct {

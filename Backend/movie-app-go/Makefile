@@ -2,9 +2,14 @@
 APP_NAME := movie-app-go
 MAIN_FILE := main.go
 DOCKER_IMAGE_NAME := ${APP_NAME}
+GOBIN := $(shell go env GOPATH)/bin
 
 # --- Phony Targets ---
-.PHONY: init run build build-docker build-compose down-compose clean-compose help
+.PHONY: swagger init run build build-docker build-compose down-compose clean-compose help
+
+swagger:
+	go install github.com/swaggo/swag/cmd/swag@latest
+	$(GOBIN)/swag init -g $(MAIN_FILE) -o docs
 
 # --- GoLang Commands ---
 
@@ -16,10 +21,12 @@ init:
 
 # Run Application
 run:
+	$(MAKE) swagger
 	go run ${MAIN_FILE}
 
 # Build Executable
 build:
+	$(MAKE) swagger
 	go build -o ${APP_NAME} ${MAIN_FILE}
 	@echo "Build successful: ./${APP_NAME}"
 
