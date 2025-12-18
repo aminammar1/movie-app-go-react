@@ -14,11 +14,11 @@ services:
 
   movie-api:
     build:
-      context: .
+      context: ./Backend/movie-app-go
       dockerfile: Dockerfile
     container_name: movie_app_api
     env_file:
-      - .env
+      - ./Backend/movie-app-go/.env
     environment:
       MONGO_URI: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@db:27017/${MONGO_DB_NAME}?authSource=admin
     ports:
@@ -27,7 +27,7 @@ services:
       - db
     restart: unless-stopped
     volumes:
-      - ./.env:/app/.env
+      - ./Backend/movie-app-go/.env:/app/.env
 
 volumes:
   mongo_data:
