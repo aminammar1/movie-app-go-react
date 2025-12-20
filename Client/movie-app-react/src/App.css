@@ -1,0 +1,84 @@
+main {
+  padding: 0 1.5rem 2rem;
+}
+
+.page-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(120deg, rgba(20, 23, 38, 0.9), rgba(11, 13, 23, 0.75)),
+    url('https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=1600&q=80') center/cover;
+  padding: 48px;
+  margin: 24px 0 16px;
+  border: 1px solid var(--border);
+}
+
+.hero-content {
+  max-width: 640px;
+}
+
+.hero-title {
+  font-size: 2.4rem;
+  margin: 0 0 12px;
+  letter-spacing: -0.5px;
+}
+
+.hero-subtitle {
+  color: var(--muted);
+  margin: 0 0 20px;
+  line-height: 1.6;
+}
+
+.pill-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.pill {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(229, 9, 20, 0.12);
+  color: var(--text);
+  border: 1px solid rgba(229, 9, 20, 0.35);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.cta-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-primary-neo {
+  background: linear-gradient(120deg, var(--accent), #ff4d4f);
+  border: none;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(229, 9, 20, 0.35);
+  cursor: pointer;
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.section-title {
+  margin: 28px 4px 12px;
+  font-size: 1.4rem;
+}

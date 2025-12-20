@@ -1,22 +1,22 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import {useNavigate, NavLink, Link} from 'react-router-dom'
+import { useNavigate, NavLink, Link } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth';
 import logo from '../../assets/logo.png';
 
-const Header = ({handleLogout}) => {
+const Header = ({ handleLogout }) => {
     const navigate = useNavigate();
-    const {auth} = useAuth();
+    const { auth } = useAuth();
 
 
     return (
-        <Navbar bg="dark" variant='dark' expand="lg" stick="top" className="shadow-sm">
+        <Navbar bg="dark" variant='dark' expand="lg" stick="top" className="shadow-sm" style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(8px)" }}>
             <Container>
-                <Navbar.Brand>
-                     <img
+                <Navbar.Brand role="button" onClick={() => navigate("/")}>
+                    <img
                         alt=""
                         src={logo}
                         width="30"
@@ -26,28 +26,28 @@ const Header = ({handleLogout}) => {
                     Movie App
                 </Navbar.Brand>
 
-            <Navbar.Toggle aria-controls="main-navbar-nav" />
+                <Navbar.Toggle aria-controls="main-navbar-nav" />
                 <Navbar.Collapse>
-                    <Nav className ="me-auto">
-                        <Nav.Link as = {NavLink} to="/">
+                    <Nav className="me-auto">
+                        <Nav.Link as={NavLink} to="/">
                             Home
                         </Nav.Link>
-                        <Nav.Link as = {NavLink} to="/recommended">
+                        <Nav.Link as={NavLink} to="/recommended">
                             Recommended
                         </Nav.Link>
                     </Nav>
 
-                    <Nav className ="ms-auto align-items-center">
+                    <Nav className="ms-auto align-items-center">
                         {auth ? (
-                        <>
-                            <span className="me-3 text-light">
-                                Hello, <strong>{auth.first_name}</strong>
-                            </span>
-                            <Button variant="outline-light" size="sm" onClick={handleLogout}>
-                                Logout
-                            </Button>
-                        </>
-                        ):(
+                            <>
+                                <span className="me-3 text-light">
+                                    Hello, <strong>{auth.first_name}</strong>
+                                </span>
+                                <Button variant="outline-light" size="sm" onClick={handleLogout}>
+                                    Logout
+                                </Button>
+                            </>
+                        ) : (
                             <>
                                 <Button
                                     variant="outline-info"

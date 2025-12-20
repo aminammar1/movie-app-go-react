@@ -15,8 +15,22 @@ const Recommandation = () => {
             setMessage("");
 
             try {
-                const response = await axiosClient.get('/recommendations-ai');
-                const payload = response.data?.data || [];
+                const base = await axiosClient.get('/recommendatedmovies');
+                let payload = base.data?.data || [];
+
+                if (!payload.length) {
+                    const controller = new AbortController();
+                    const timer = setTimeout(() => controller.abort(), 7000);
+                    try {
+                        const aiResp = await axiosClient.get('/recommendations-ai', { signal: controller.signal });
+                        payload = aiResp.data?.data || [];
+                    } catch (err) {
+                        console.error('AI recommendations fallback timed out or failed');
+                    } finally {
+                        clearTimeout(timer);
+                    }
+                }
+
                 setMovies(payload);
             } catch (error) {
                 console.error("Error fetching recommended movies:", error)
