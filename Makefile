@@ -1,12 +1,13 @@
 # --- Configuration Variables ---
 APP_NAME := movie-app-go
 BACKEND_PATH := Backend/movie-app-go
+CLIENT_PATH := Client/movie-app-react
 MAIN_FILE := main.go
 DOCKER_IMAGE_NAME := ${APP_NAME}
 GOBIN := $(shell go env GOPATH)/bin
 
 # --- Phony Targets ---
-.PHONY: swagger init run build build-docker build-compose down-compose clean-compose help
+.PHONY: swagger init run build build-docker build-compose down-compose clean-compose client-install client-build help
 
 swagger:
 	go install github.com/swaggo/swag/cmd/swag@latest
@@ -55,6 +56,14 @@ clean-compose:
 	@echo "Stopping and removing services, volumes, images, and orphans..."
 	docker-compose --env-file $(BACKEND_PATH)/.env down --volumes --rmi all --remove-orphans
 
+# --- Client Commands ---
+
+client-install:
+	cd $(CLIENT_PATH) && yarn install
+
+client-build:
+	cd $(CLIENT_PATH) && yarn build
+
 # Help
 help:
 	@echo "Available targets:"
@@ -66,4 +75,6 @@ help:
 	@echo "  build-compose  - Build and start services with Docker Compose"
 	@echo "  down-compose   - Stop Docker Compose services"
 	@echo "  clean-compose  - Stop services and remove volumes"
+	@echo "  client-install - Install client dependencies with yarn"
+	@echo "  client-build   - Build client bundle with yarn"
 	@echo "  help           - Show this help message"

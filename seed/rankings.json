@@ -1,0 +1,14 @@
+[
+  {
+    "ranking_value": 999,
+    "ranking_name": "Neutral"
+  },
+  {
+    "ranking_value": 1,
+    "ranking_name": "Positive"
+  },
+  {
+    "ranking_value": -1,
+    "ranking_name": "Negative"
+  }
+]

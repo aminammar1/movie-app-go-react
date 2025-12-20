@@ -12,6 +12,17 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  mongo-seed:
+    image: mongo:latest
+    container_name: movie_app_seed
+    depends_on:
+      - db
+    env_file:
+      - ./Backend/movie-app-go/.env
+    volumes:
+      - ./seed:/seed:ro
+    entrypoint: [ "sh", "-c", "sleep 5 && mongoimport --uri \"mongodb://${MONGO_USER}:${MONGO_PASSWORD}@db:27017/${MONGO_DB_NAME}?authSource=admin\" --collection genres --jsonArray --drop /seed/genres.json && mongoimport --uri \"mongodb://${MONGO_USER}:${MONGO_PASSWORD}@db:27017/${MONGO_DB_NAME}?authSource=admin\" --collection rankings --jsonArray --drop /seed/rankings.json && mongoimport --uri \"mongodb://${MONGO_USER}:${MONGO_PASSWORD}@db:27017/${MONGO_DB_NAME}?authSource=admin\" --collection movies --jsonArray --drop /seed/movies.json && mongoimport --uri \"mongodb://${MONGO_USER}:${MONGO_PASSWORD}@db:27017/${MONGO_DB_NAME}?authSource=admin\" --collection users --jsonArray --drop /seed/users.json" ]
+
   movie-api:
     build:
       context: ./Backend/movie-app-go
@@ -28,6 +39,19 @@ services:
     restart: unless-stopped
     volumes:
       - ./Backend/movie-app-go/.env:/app/.env
+
+  client:
+    build:
+      context: ./Client/movie-app-react
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:5000/api/v1
+    container_name: movie_app_client
+    ports:
+      - "5173:80"
+    depends_on:
+      - movie-api
+    restart: unless-stopped
 
 volumes:
   mongo_data:

@@ -1,0 +1,24 @@
+[
+  {
+    "user_id": "admin-1",
+    "first_name": "Admin",
+    "last_name": "User",
+    "email": "admin@movieapp.local",
+    "password": "$2a$10$7EqJtq98hPqEX7fNZaFWoOa1C1QCcf0e5W5/6LsWJX9uLhh.6b.3K",
+    "role": "ADMIN",
+    "created_at": {
+      "$date": "2024-01-01T00:00:00Z"
+    },
+    "updated_at": {
+      "$date": "2024-01-01T00:00:00Z"
+    },
+    "access_token": "",
+    "refresh_token": "",
+    "favourite_movies_genres": [
+      {
+        "genre_id": "28",
+        "genre_name": "Action"
+      }
+    ]
+  }
+]

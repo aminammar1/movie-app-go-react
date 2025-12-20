@@ -5,6 +5,11 @@ Backend/movie-app-go/bin/
 .DB_STORE
 .vscode/
 
+# Client build artifacts
+Client/movie-app-react/node_modules/
+Client/movie-app-react/dist/
+Client/movie-app-react/.env
+
 # Environment files
 Backend/movie-app-go/.env
 .env

@@ -1,0 +1,18 @@
+[
+  {
+    "genre_id": "28",
+    "genre_name": "Action"
+  },
+  {
+    "genre_id": "18",
+    "genre_name": "Drama"
+  },
+  {
+    "genre_id": "878",
+    "genre_name": "Science Fiction"
+  },
+  {
+    "genre_id": "35",
+    "genre_name": "Comedy"
+  }
+]

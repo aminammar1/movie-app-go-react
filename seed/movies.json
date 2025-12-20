@@ -1,0 +1,48 @@
+[
+  {
+    "imdb_id": "tt1375666",
+    "title": "Inception",
+    "poster_url": "https://m.media-amazon.com/images/I/81p+xe8cbnL._AC_SY679_.jpg",
+    "youtube_id": "YoHD9XEInc0",
+    "genres": [
+      {
+        "genre_id": "28",
+        "genre_name": "Action"
+      },
+      {
+        "genre_id": "878",
+        "genre_name": "Science Fiction"
+      }
+    ],
+    "release_year": 2010,
+    "ranking": {
+      "ranking_value": 999,
+      "ranking_name": "Neutral"
+    },
+    "admin_review": "",
+    "description": "A thief who steals corporate secrets through dream-sharing technology is given a chance at redemption."
+  },
+  {
+    "imdb_id": "tt0816692",
+    "title": "Interstellar",
+    "poster_url": "https://m.media-amazon.com/images/I/91kFYg4fX3L._AC_SY679_.jpg",
+    "youtube_id": "zSWdZVtXT7E",
+    "genres": [
+      {
+        "genre_id": "18",
+        "genre_name": "Drama"
+      },
+      {
+        "genre_id": "878",
+        "genre_name": "Science Fiction"
+      }
+    ],
+    "release_year": 2014,
+    "ranking": {
+      "ranking_value": 999,
+      "ranking_name": "Neutral"
+    },
+    "admin_review": "",
+    "description": "A team of explorers travels through a wormhole in space to ensure humanity's survival."
+  }
+]

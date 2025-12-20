@@ -1,11 +1,12 @@
 import axios from 'axios';
-const api_url = import.meta.env.VITE_API_URL;
+
+const apiUrl = import.meta.env.VITE_API_URL || window._ENV_?.VITE_API_URL || window._ENV_?.API_URL;
 
 export default axios.create({
-  baseURL: api_url,
+  baseURL: apiUrl,
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json'
   },
-  withCredentials: true,  // important for sending cookies
+  withCredentials: true
 });
 
